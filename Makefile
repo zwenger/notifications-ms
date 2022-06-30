@@ -9,6 +9,9 @@ build:
 run:
 	docker run --rm -ti -p 4000:4000 -v ${PWD}/.env:/app/.env:ro \
 		ms_wallet-notifications:local
+.PHONY: run
+run:
+	docker-compose -f docker-compose.data.yml up 
 
 .PHONY: swagger
 swagger:

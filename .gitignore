@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-tach-wallet-dev-firebase-adminsdk-niy3e-1e6d3bb30c.json
 .idea/
+.vscode/
