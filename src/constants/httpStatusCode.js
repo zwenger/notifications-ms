@@ -1,0 +1,9 @@
+const HTTP_SUCCESS = 200;
+const HTTP_SERVER_ERROR = 500;
+const HTTP_BAD_REQUEST = 400;
+
+module.exports = {
+  HTTP_SUCCESS,
+  HTTP_SERVER_ERROR,
+  HTTP_BAD_REQUEST,
+};

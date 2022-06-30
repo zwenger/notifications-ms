@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  notifications:
+      container_name: ms_notifications
+      restart: always
+      build:
+          context: .
+          dockerfile: Dockerfile.development
+      ports:
+          - "5555:4000"
+      volumes:
+          - .:/usr/src/app

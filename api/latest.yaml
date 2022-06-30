@@ -1,0 +1,460 @@
+openapi: 3.0.0
+info:
+  title: Notifications
+  version: '1.0'
+  contact:
+    name: notnini
+    email: notnini@gmail.com
+  description: Micro-servicio encargado de notificaciones por email y push
+servers:
+  - url: 'http://localhost:4000'
+paths:
+  /forgotPassword:
+    post:
+      summary: Forgot Password
+      operationId: post-forgotPassword
+      responses:
+        '200':
+          description: OK
+      description: Endpoint para enviar el email que restaura la contraseña del usuario
+      requestBody:
+        $ref: '#/components/requestBodies/forgotPassword'
+      tags:
+        - notifications
+  /accountDisable:
+    post:
+      summary: Account Disable
+      operationId: post-accountDisable
+      responses:
+        '200':
+          description: OK
+      description: Endpoint para enviar un email cuando el usuario trato de logearse muchas veces con credenciales erroneas
+      requestBody:
+        $ref: '#/components/requestBodies/accountDisable'
+      tags:
+        - notifications
+  /lockedAccount:
+    post:
+      summary: Locked Account
+      operationId: post-lockedAccount
+      responses:
+        '200':
+          description: OK
+      description: |
+        Endpoint para enviar un email cuando la cuenta del usuario fue dehabilitada demasiadas veces 
+      requestBody:
+        $ref: '#/components/requestBodies/lockedAccount'
+      tags:
+        - notifications
+  /welcome:
+    post:
+      summary: Welcome
+      operationId: post-welcome
+      responses:
+        '200':
+          description: OK
+      description: 'Endpoint para enviar un email cuando el usuario completo el proceso de onboarding '
+      requestBody:
+        $ref: '#/components/requestBodies/welcome'
+      tags:
+        - notifications
+  /verification:
+    post:
+      summary: Verification
+      operationId: post-verification
+      responses:
+        '200':
+          description: OK
+      description: Endpoint para enviar un email cuando el usuario necesita verificar su email
+      requestBody:
+        $ref: '#/components/requestBodies/verification'
+      tags:
+        - notifications
+  /registrationSucess:
+    post:
+      summary: Registration Sucess
+      operationId: post-registrationSucess
+      responses:
+        '200':
+          description: OK
+      description: 'Endpoint para enviar un email cuando el usuario ha verificado con exito su email '
+      requestBody:
+        $ref: '#/components/requestBodies/registrationSucess'
+      tags:
+        - notifications
+  /profileImageError:
+    post:
+      summary: Profile Image Error
+      operationId: post-profileImageError
+      responses:
+        '200':
+          description: OK
+      description: 'Endpoint para enviar un email a back office cuando un usuario tuvo problemas al subir cualquiera de las imagenes del proceso de onboarding '
+      requestBody:
+        $ref: '#/components/requestBodies/profileImageError'
+      tags:
+        - notifications
+  /rechargeNotiication:
+    post:
+      summary: Rolcat recharge notification
+      operationId: post-rechargeNotiication
+      responses:
+        '200':
+          description: OK
+      description: Enpoint para enviar una notificacion push al usuario con el estado de la recarga
+      requestBody:
+        $ref: '#/components/requestBodies/rechargeNotification'
+      tags:
+        - notifications
+components:
+  schemas: {}
+  requestBodies:
+    forgotPassword:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            x-examples:
+              example-1:
+                method: forgotPassword
+                data:
+                  email: test@test.com
+                  token: '1234'
+                  url: 'http://web.web.com'
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    minLength: 1
+                  token:
+                    type: string
+                    minLength: 1
+                  url:
+                    type: string
+                    minLength: 1
+          examples:
+            example-sendForgotPasswordEmail:
+              value:
+                method: sendForgotPasswordEmail
+                data:
+                  email: notnini.example@gmail.com
+                  token: '123456'
+                  url: 'http://web.web.com'
+      description: ''
+    accountDisable:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    minLength: 1
+                  date_next_attempt:
+                    type: string
+                    minLength: 1
+                  time_next_attempt:
+                    type: string
+                    minLength: 1
+                required:
+                  - email
+                  - date_next_attempt
+                  - time_next_attempt
+            required:
+              - method
+              - data
+            x-examples:
+              example-1:
+                method: string
+                data:
+                  email: string
+                  date_next_attempt: string
+                  time_next_attempt: string
+          examples:
+            example-sendAccountDisabledEmail:
+              value:
+                method: sendAccountDisabledEmail
+                data:
+                  email: notnini.example@gmail.com
+                  date_next_attempt: 20/10/2021
+                  time_next_attempt: '16'
+    lockedAccount:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    minLength: 1
+                required:
+                  - email
+            required:
+              - method
+              - data
+            x-examples:
+              example-1:
+                method: string
+                data:
+                  email: string
+          examples:
+            example-sendlockedAccountEmail:
+              value:
+                method: sendlockedAccountEmail
+                data:
+                  email: notnini.example@gmail.com
+    welcome:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  surname:
+                    type: string
+                    minLength: 1
+                required:
+                  - email
+                  - name
+                  - surname
+            required:
+              - method
+              - data
+            x-examples:
+              example-1:
+                method: string
+                data:
+                  email: string
+                  name: string
+                  surname: string
+          examples:
+            example-welcome:
+              value:
+                method: sendWelcomeEmail
+                data:
+                  email: notnini.example@gmail.com
+                  name: notnini
+                  surname: example
+    verification:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    minLength: 1
+                  url:
+                    type: string
+                    minLength: 1
+                  code:
+                    type: string
+                    minLength: 1
+                  deleteUrl:
+                    type: string
+                    minLength: 1
+                required:
+                  - email
+                  - url
+                  - code
+                  - deleteUrl
+            required:
+              - method
+              - data
+            x-examples:
+              example-1:
+                method: string
+                data:
+                  email: string
+                  url: string
+                  code: string
+                  deleteUrl: string
+          examples:
+            example-sendVerificationEmail:
+              value:
+                method: sendVerificationEmail
+                data:
+                  email: notnini.example@gmail.com
+                  url: 'http://www.web.web.com'
+                  code: '123456'
+                  deleteUrl: 'http://www.web.web.com/delete'
+    registrationSucess:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                required:
+                  - url
+                  - email
+            required:
+              - method
+              - data
+            x-examples:
+              example-1:
+                method: string
+                data:
+                  url: string
+                  email: string
+          examples:
+            example-sendRegistrationSuccessEmail:
+              value:
+                method: sendRegistrationSuccessEmail
+                data:
+                  url: 'http://www.web.web.com'
+                  email: notnini.example@gmail.com
+    profileImageError:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    minLength: 1
+                  surname:
+                    type: string
+                    minLength: 1
+                  phone:
+                    type: string
+                    minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                required:
+                  - name
+                  - surname
+                  - phone
+                  - email
+            required:
+              - method
+              - data
+            x-examples:
+              example-1:
+                method: string
+                data:
+                  name: string
+                  surname: string
+                  phone: string
+                  email: string
+          examples:
+            example-profileImageError:
+              value:
+                method: profileImageError
+                data:
+                  name: Diego
+                  surname: Maradona
+                  phone: +54 9 381 3879654
+                  email: diego.maradona@gmail.com
+    rechargeNotification:
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              method:
+                type: string
+                minLength: 1
+              data:
+                type: object
+                properties:
+                  idPush:
+                    type: string
+                    minLength: 1
+                  codMsjRolcat:
+                    type: string
+                    minLength: 1
+                  codError:
+                    type: string
+                    minLength: 1
+                  status:
+                    type: string
+                    minLength: 1
+                required:
+                  - idPush
+                  - codMsjRolcat
+                  - codError
+                  - status
+            required:
+              - method
+              - data
+            x-examples:
+              example-1:
+                method: string
+                data:
+                  idPush: string
+                  codMsjRolcat: string
+                  codError: string
+                  status: string
+          examples:
+            example-rolcatRechargeNotification:
+              value:
+                method: rolcatRechargeNotification
+                data:
+                  idPush: 1234%$^ASDQW
+                  codMsjRolcat: recarga pendiente
+                  codError: '111111'
+                  status: Pendiente
+  examples: {}
+tags:
+  - name: notifications

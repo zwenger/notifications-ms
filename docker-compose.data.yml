@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  # rabbitmq:
+  #   image: rabbitmq:3.9-management
+  #   ports:
+  #     - "14500:5672"
+  #     - "14580:15672"
+  #   volumes:
+  #     - $PWD/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+  redis:
+    image: redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+      
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+    - REDIS_HOSTS=local:redis:6379
+    ports:
+    - "8081:8081"
