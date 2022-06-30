@@ -19,7 +19,7 @@ Sentry.init({
 // // TODO: remove main method and use the queue directly
 // const main = async () => {
 //   await emailQueue.add({
-//     data: { name: 'John', age: 30 },
+//     data: { url: 'https://www.google.com', email: 'ritortoalvaro93@gmail.com' },
 //     method: 'sendRegistrationSuccessEmail',
 //   });
 // };
