@@ -35,9 +35,6 @@ Para levantar el servicio con docker correr el comando:\
 ### REDIS QUEUE
 
 El servicio es un consumer el cual esta escuchando constantemente una cola de REDIS definida a traves de las variables de entorno.
-En el codigo la URL final de la cola se conforma de 3 partes:
-
-`SQS_PREFIX/AWS_USERD_ID/EMAIL_QUEUE` 
 
 * REDIS_IP: Ip de la instancia de redis a utilizar.
 
