@@ -1,13 +1,15 @@
-const INSTAGRAM = 'https://www.instagram.com/tachla.ok/';
-const FACEBOOK = 'https://www.facebook.com/tach.la.ok/';
-const TWITTER = 'https://twitter.com/tachala_ok';
-const SUPPORT = 'soporte@tach.la';
-const DOMAIN = 'tach.la';
-const HOMEPAGE = 'https://tach.la';
+const INSTAGRAM = 'https://www.instagram.com/notninioficial/';
+const FACEBOOK = 'https://www.instagram.com/notninioficial/';
+const TIKTOK = 'https://www.tiktok.com/@notninioficial';
+const TWITTER = '';
+const SUPPORT = 'atencionalcliente@notnini.com';
+const DOMAIN = '';
+const HOMEPAGE = '';
 
 module.exports = {
   INSTAGRAM,
   FACEBOOK,
+  TIKTOK,
   SUPPORT,
   TWITTER,
   DOMAIN,

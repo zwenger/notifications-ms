@@ -21,11 +21,12 @@ const commonOptions = (email) => ({
   to: email,
 });
 
-const sendForgotPasswordEmail = async ({ email, token, url }) => {
+const sendForgotPasswordEmail = async ({ email, token }) => {
+  const url = `${process.env.FRONTEND_URL}/reset-password/${token}`;
   const mailOptions = {
     ...commonOptions(email),
-    subject: 'Olvidaste tu contraseña',
-    html: emailTemplates.forgotPasswordBuilder(token, url),
+    subject: 'Recupera tu contraseña',
+    html: emailTemplates.forgotPassword(url),
   };
 
   return sendEmail(mailOptions);
@@ -41,7 +42,7 @@ const sendAccountDisabledEmail = async ({
     subject: 'Cuenta deshabilitada',
     html: emailTemplates.accoundDisabledBuilder(
       date_next_attempt,
-      time_next_attempt,
+      time_next_attempt
     ),
   };
 
@@ -68,13 +69,14 @@ const sendWelcomeEmail = async ({ email, name, surname }) => {
   return sendEmail(mailOptions);
 };
 
-const sendVerificationEmail = async ({
-  email, url, code, deleteUrl,
-}) => {
+const sendVerificationEmail = async ({ email, token }) => {
+  const url = `${process.env.FRONTEND_URL}/verify-email/${token}`;
+  const deleteUrl = `${process.env.FRONTEND_URL}/delete-account/${token}`;
+
   const mailOptions = {
     ...commonOptions(email),
-    subject: 'Email de Verificacion',
-    html: emailTemplates.verificationBuilder(url, code, deleteUrl),
+    subject: 'Confirma tu cuenta',
+    html: emailTemplates.verification(url, deleteUrl),
   };
 
   return sendEmail(mailOptions);
@@ -89,9 +91,7 @@ const sendRegistrationSuccessEmail = async ({ url, email }) => {
   return sendEmail(mailOptions);
 };
 
-const profileImageError = async ({
-  name, surname, phone, email,
-}) => {
+const profileImageError = async ({ name, surname, phone, email }) => {
   const mailOptions = {
     ...commonOptions(process.env.BACKOFFICE_EMAIL),
     subject: 'Error al subir la imagen de perfil',

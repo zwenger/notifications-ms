@@ -48,7 +48,7 @@ app.listen(port, () => {
   console.log(`Server up at http://localhost:${port}`);
 });
 
-// -----EMAIL SQS CONSUMER-----
+// -----EMAIL REDIS CONSUMER-----
 emailQueue.process(async (job, done) => {
   const { data, method } = job.data;
   console.log('Email', method, 'Data', data);

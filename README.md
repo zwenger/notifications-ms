@@ -15,7 +15,7 @@ Micro servicio encargado de realizar notificaciones por email
 * Tanto si se quiere inicializar el servicio de manera local o con docker se debe levantar el servicio de redis para la mensajeria.
 
 Correr el comando:
-> `docker-compose -f docker-compose.data.yml -d`
+> `docker-compose -f docker-compose.data.yml up -d`
 
 
 * ### Docker
@@ -99,7 +99,7 @@ En caso de necesitar correr un test en especifico utilizar:
 > `docker exec wallet_notification npm test -- -t "<nombreDelTest>"`
 
 Por Ej:
-> `docker exec wallet_notification npm test -- -t "will send unlock user email"`
+> `docker exec ms_notifications npm test -- -t "will send unlock user email"`
 
 ## Logica y enfoque
 >TODO
